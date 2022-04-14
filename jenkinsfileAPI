@@ -1,0 +1,21 @@
+pipeline {
+  agent any
+  tools {nodejs "NodeJS"}
+  stages {
+    stage('clonar repositorio package.json') {
+      steps {
+        git branch: 'main', credentialsId: 'username_password_corporativo', url: 'https://github.com/lmarcelamaya/api-automation.git'
+      }
+    }
+    stage('instalar') {
+      steps {
+        bat 'npm install'
+      }
+    }
+    stage('ejecutar api tests automation') {
+      steps {
+        bat 'npm run https://www.getpostman.com/collections/9925d9a4eedf47149ac2 -e https://api.getpostman.com/environments/16985662-901d3c77-eefe-4438-af64-b4513aa33c70?apikey=PMAK-62297398c6b7c725f4b9311d-4b4bc3517504a31cc4a4c63bb2376d17b4  --reporters cli,html --insecure'
+      }
+    }
+  }
+}
